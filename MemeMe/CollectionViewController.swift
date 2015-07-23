@@ -1,14 +1,14 @@
 //
-//  ViewController.swift
+//  CollectionViewController.swift
 //  MemeMe
 //
-//  Created by Derek Crous on 22/07/2015.
+//  Created by Derek Crous on 23/07/2015.
 //  Copyright (c) 2015 Ludocrous Software. All rights reserved.
 //
 
 import UIKit
 
-class TableViewController: UITableViewController,UITableViewDataSource, UITableViewDelegate {
+class CollectionViewController: UICollectionViewController, UICollectionViewDataSource,UICollectionViewDelegate {
     
     var memes: [Meme]!
     override func viewDidLoad() {
@@ -23,24 +23,23 @@ class TableViewController: UITableViewController,UITableViewDataSource, UITableV
         memes = appDelegate.memes
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return memes.count
-    }
-    
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("MemeCell") as! UITableViewCell
-        let meme = memes[indexPath.row]
-        
-        cell.textLabel?.text = meme.topText
-        cell.imageView?.image = meme.memedImage
-        return cell
-    }
+//    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return memes.count
+//    }
+//    
+//    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCellWithIdentifier("MemeCell") as! UITableViewCell
+//        let meme = memes[indexPath.row]
+//        
+//        cell.textLabel?.text = meme.topText
+//        cell.imageView?.image = meme.memedImage
+//        return cell
+//    }
     
     @IBAction func createMeme(sender: AnyObject) {
         let createMemeController = self.storyboard!.instantiateViewControllerWithIdentifier("CreateMemeViewController") as! CreateMemeViewController
         createMemeController.hidesBottomBarWhenPushed = true
         self.presentViewController(createMemeController, animated: true, completion: nil)
     }
-   
+    
 }
-
