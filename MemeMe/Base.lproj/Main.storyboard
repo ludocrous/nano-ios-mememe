@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="TQv-No-ShP">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -186,7 +187,11 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <items>
                                     <navigationItem id="WsJ-SB-7YH">
-                                        <barButtonItem key="leftBarButtonItem" systemItem="action" id="5HZ-aE-M90"/>
+                                        <barButtonItem key="leftBarButtonItem" enabled="NO" systemItem="action" id="5HZ-aE-M90">
+                                            <connections>
+                                                <action selector="createAndShareMeme:" destination="DoX-H1-ghB" id="c3x-si-WjE"/>
+                                            </connections>
+                                        </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="GFt-5P-NjZ">
                                             <connections>
                                                 <action selector="cancel:" destination="DoX-H1-ghB" id="gfD-YP-YqX"/>
@@ -204,9 +209,6 @@
                                 <color key="textColor" red="1" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="19"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
-                                <variation key="widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="16" y="74" width="368" height="40"/>
-                                </variation>
                                 <connections>
                                     <outlet property="delegate" destination="DoX-H1-ghB" id="9Au-1f-KeB"/>
                                 </connections>
@@ -216,9 +218,6 @@
                                 <color key="textColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="19"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
-                                <variation key="widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="16" y="508" width="368" height="40"/>
-                                </variation>
                             </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -234,8 +233,8 @@
                             <constraint firstItem="WN7-mV-Ivs" firstAttribute="leading" secondItem="k5x-Qo-sNo" secondAttribute="leadingMargin" constant="-16" id="Wjk-0c-dGS"/>
                             <constraint firstItem="iTQ-wS-fqQ" firstAttribute="trailing" secondItem="k5x-Qo-sNo" secondAttribute="trailingMargin" id="aoq-95-zZM"/>
                             <constraint firstItem="a1D-DN-o4S" firstAttribute="leading" secondItem="k5x-Qo-sNo" secondAttribute="leadingMargin" id="eAe-2N-UU9"/>
-                            <constraint firstItem="a1D-DN-o4S" firstAttribute="top" secondItem="2G5-z9-CLU" secondAttribute="bottom" constant="54" id="nY7-NM-tTA"/>
                             <constraint firstItem="Zln-ZH-uBn" firstAttribute="top" secondItem="2G5-z9-CLU" secondAttribute="bottom" id="oNw-yn-T8y"/>
+                            <constraint firstItem="a1D-DN-o4S" firstAttribute="top" secondItem="Zln-ZH-uBn" secondAttribute="bottom" constant="10" id="oPU-DH-tCC"/>
                             <constraint firstItem="H8c-yd-RZc" firstAttribute="top" secondItem="iTQ-wS-fqQ" secondAttribute="bottom" id="p6L-bg-rPW">
                                 <variation key="widthClass=compact" constant="10"/>
                             </constraint>
@@ -259,7 +258,7 @@
                                 <exclude reference="Wjk-0c-dGS"/>
                                 <exclude reference="6bv-KQ-KB3"/>
                                 <exclude reference="eAe-2N-UU9"/>
-                                <exclude reference="nY7-NM-tTA"/>
+                                <exclude reference="oPU-DH-tCC"/>
                                 <exclude reference="IVB-Ea-3Lw"/>
                                 <exclude reference="aoq-95-zZM"/>
                                 <exclude reference="JzL-QK-ww5"/>
@@ -286,7 +285,7 @@
                                 <include reference="Wjk-0c-dGS"/>
                                 <include reference="6bv-KQ-KB3"/>
                                 <include reference="eAe-2N-UU9"/>
-                                <include reference="nY7-NM-tTA"/>
+                                <include reference="oPU-DH-tCC"/>
                                 <include reference="IVB-Ea-3Lw"/>
                                 <include reference="aoq-95-zZM"/>
                                 <include reference="JzL-QK-ww5"/>
@@ -298,9 +297,12 @@
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="activityButton" destination="5HZ-aE-M90" id="Y0j-TH-hda"/>
                         <outlet property="bottomTitleTextField" destination="iTQ-wS-fqQ" id="AFU-xh-S42"/>
                         <outlet property="cameraButton" destination="2Sb-V2-iJ7" id="EKI-Ib-ogL"/>
                         <outlet property="imageView" destination="WN7-mV-Ivs" id="HWw-ag-9Ow"/>
+                        <outlet property="navigationBar" destination="Zln-ZH-uBn" id="Uab-b0-BOc"/>
+                        <outlet property="toolbar" destination="H8c-yd-RZc" id="bz8-8y-1mL"/>
                         <outlet property="topTitleTextField" destination="a1D-DN-o4S" id="d2R-PJ-8G5"/>
                     </connections>
                 </viewController>
