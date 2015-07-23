@@ -37,6 +37,13 @@ class TableViewController: UITableViewController,UITableViewDataSource, UITableV
         return cell
     }
     
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let detailController = self.storyboard!.instantiateViewControllerWithIdentifier("MemeViewController") as! MemeViewController
+//        detailController.villain = self.allVillains[indexPath.row]
+        detailController.meme = memes[indexPath.row]
+        self.navigationController!.pushViewController(detailController, animated: true)
+    }
+    
     @IBAction func createMeme(sender: AnyObject) {
         let createMemeController = self.storyboard!.instantiateViewControllerWithIdentifier("CreateMemeViewController") as! CreateMemeViewController
         createMemeController.hidesBottomBarWhenPushed = true
