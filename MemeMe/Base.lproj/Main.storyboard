@@ -23,7 +23,7 @@
             </objects>
             <point key="canvasLocation" x="-3276" y="554"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Sent Memes-->
         <scene sceneID="CSa-R9-cU9">
             <objects>
                 <tableViewController id="Q9t-kA-nhj" customClass="TableViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
@@ -32,23 +32,46 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MemeCell" textLabel="EW0-QB-2zm" style="IBUITableViewCellStyleDefault" id="g9f-Hw-Bt0">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MemeCell" id="g9f-Hw-Bt0" customClass="TableViewCell" customModule="MemeMe" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="g9f-Hw-Bt0" id="cQb-el-uGw">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="EW0-QB-2zm">
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="abq-yK-aNI">
+                                            <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <variation key="widthClass=compact" fixedFrame="YES">
+                                                <rect key="frame" x="8" y="0.0" width="92" height="65"/>
+                                            </variation>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zca-LN-92c">
+                                            <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
-                                            <variation key="widthClass=compact">
-                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <variation key="widthClass=compact" fixedFrame="YES">
+                                                <rect key="frame" x="108" y="8" width="284" height="49"/>
                                             </variation>
                                         </label>
                                     </subviews>
+                                    <variation key="default">
+                                        <mask key="subviews">
+                                            <exclude reference="abq-yK-aNI"/>
+                                            <exclude reference="zca-LN-92c"/>
+                                        </mask>
+                                    </variation>
+                                    <variation key="widthClass=compact">
+                                        <mask key="subviews">
+                                            <include reference="abq-yK-aNI"/>
+                                            <include reference="zca-LN-92c"/>
+                                        </mask>
+                                    </variation>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="memeImageView" destination="abq-yK-aNI" id="R6c-Vn-nhd"/>
+                                    <outlet property="memeLabel" destination="zca-LN-92c" id="HeO-bi-hdx"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -56,7 +79,7 @@
                             <outlet property="delegate" destination="Q9t-kA-nhj" id="O5B-PW-Yr1"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="FE0-TH-jm2">
+                    <navigationItem key="navigationItem" title="Sent Memes" id="FE0-TH-jm2">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Cxr-It-zHn">
                             <connections>
                                 <action selector="createMeme:" destination="Q9t-kA-nhj" id="0MM-Rv-N0W"/>
@@ -68,28 +91,65 @@
             </objects>
             <point key="canvasLocation" x="-2436" y="554"/>
         </scene>
-        <!--Collection View Controller-->
+        <!--Sent Memes-->
         <scene sceneID="Vn5-TA-Rar">
             <objects>
                 <collectionViewController id="Be5-hi-24F" customClass="CollectionViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="0sG-cO-V4v">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="aPl-Ym-UNR">
-                            <size key="itemSize" width="50" height="50"/>
+                            <size key="itemSize" width="115" height="115"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CollectionViewCell" id="djh-ZJ-jLN">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="1" contentMode="center" reuseIdentifier="CollectionViewCell" id="djh-ZJ-jLN" customClass="CollectionViewCell" customModule="MemeMe" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="115" height="115"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="t1l-UT-kcQ">
+                                            <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                        </imageView>
+                                    </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
+                                <constraints>
+                                    <constraint firstItem="t1l-UT-kcQ" firstAttribute="top" secondItem="djh-ZJ-jLN" secondAttribute="topMargin" constant="-8" id="Le0-hJ-6zR"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="t1l-UT-kcQ" secondAttribute="trailing" constant="-8" id="Xuw-4c-Dgc"/>
+                                    <constraint firstAttribute="bottomMargin" secondItem="t1l-UT-kcQ" secondAttribute="bottom" constant="-8" id="gqX-Ex-VPO"/>
+                                    <constraint firstItem="t1l-UT-kcQ" firstAttribute="leading" secondItem="djh-ZJ-jLN" secondAttribute="leadingMargin" constant="-8" id="oBQ-Cx-0Sv"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="subviews">
+                                        <exclude reference="t1l-UT-kcQ"/>
+                                    </mask>
+                                    <mask key="constraints">
+                                        <exclude reference="Le0-hJ-6zR"/>
+                                        <exclude reference="Xuw-4c-Dgc"/>
+                                        <exclude reference="gqX-Ex-VPO"/>
+                                        <exclude reference="oBQ-Cx-0Sv"/>
+                                    </mask>
+                                </variation>
+                                <variation key="widthClass=compact">
+                                    <mask key="subviews">
+                                        <include reference="t1l-UT-kcQ"/>
+                                    </mask>
+                                    <mask key="constraints">
+                                        <include reference="Le0-hJ-6zR"/>
+                                        <include reference="Xuw-4c-Dgc"/>
+                                        <include reference="gqX-Ex-VPO"/>
+                                        <include reference="oBQ-Cx-0Sv"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <outlet property="memeImageView" destination="t1l-UT-kcQ" id="Hht-HT-vHr"/>
+                                </connections>
                             </collectionViewCell>
                         </cells>
                         <connections>
@@ -97,7 +157,7 @@
                             <outlet property="delegate" destination="Be5-hi-24F" id="NiQ-fj-xWs"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" id="fiQ-bF-tgj">
+                    <navigationItem key="navigationItem" title="Sent Memes" id="fiQ-bF-tgj">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Ppf-Du-COx">
                             <connections>
                                 <action selector="createMeme:" destination="Be5-hi-24F" id="YXf-FW-ZFk"/>

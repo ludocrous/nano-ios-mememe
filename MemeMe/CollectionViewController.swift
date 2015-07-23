@@ -21,8 +21,25 @@ class CollectionViewController: UICollectionViewController, UICollectionViewData
         let object = UIApplication.sharedApplication().delegate
         let appDelegate = object as! AppDelegate
         memes = appDelegate.memes
+        self.collectionView?.reloadData()
     }
     
+    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return memes.count
+    }
+    
+    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("CollectionViewCell", forIndexPath: indexPath) as! CollectionViewCell
+        let meme = memes[indexPath.row]
+        cell.memeImageView?.image = meme.originalImage
+        return cell
+    }
+    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        let detailController = self.storyboard!.instantiateViewControllerWithIdentifier("MemeViewController") as! MemeViewController
+        //        detailController.villain = self.allVillains[indexPath.row]
+        detailController.meme = memes[indexPath.row]
+        self.navigationController!.pushViewController(detailController, animated: true)
+    }
 //    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 //        return memes.count
 //    }
