@@ -33,9 +33,16 @@ class TableViewController: UITableViewController,UITableViewDataSource, UITableV
         let meme = memes[indexPath.row]
         cell.memeImageView.image = meme.originalImage
         cell.memeLabel.text = meme.topText! + " ... " + meme.bottomText!
-//        cell.textLabel?.text = meme.topText
-//        cell.imageView?.image = meme.memedImage
-//        cell.imageView?.contentMode = UIViewContentMode.ScaleToFill
+        cell.memeTopTextLabel.text = meme.topText!
+        cell.memeTopTextLabel.font = UIFont(name: "HelveticaNeue-CondensedBlack", size: 8)
+        cell.memeTopTextLabel.textColor = UIColor.whiteColor()
+        cell.memeTopTextLabel.shadowColor = UIColor.blackColor()
+
+        cell.memeBottomTextLabel.text = meme.bottomText!
+        cell.memeBottomTextLabel.font = UIFont(name: "HelveticaNeue-CondensedBlack", size: 8)
+        cell.memeBottomTextLabel.textColor = UIColor.whiteColor()
+        cell.memeBottomTextLabel.shadowColor = UIColor.blackColor()
+
         return cell
     }
     

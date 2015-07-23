@@ -32,6 +32,17 @@ class CollectionViewController: UICollectionViewController, UICollectionViewData
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("CollectionViewCell", forIndexPath: indexPath) as! CollectionViewCell
         let meme = memes[indexPath.row]
         cell.memeImageView?.image = meme.originalImage
+        cell.memeTopTextLabel.text = meme.topText!
+        cell.memeTopTextLabel.font = UIFont(name: "HelveticaNeue-CondensedBlack", size: 8)
+        cell.memeTopTextLabel.textColor = UIColor.whiteColor()
+        cell.memeTopTextLabel.shadowColor = UIColor.blackColor()
+        
+        cell.memeBottomTextLabel.text = meme.bottomText!
+        cell.memeBottomTextLabel.font = UIFont(name: "HelveticaNeue-CondensedBlack", size: 8)
+        cell.memeBottomTextLabel.textColor = UIColor.whiteColor()
+        cell.memeBottomTextLabel.shadowColor = UIColor.blackColor()
+
+        
         return cell
     }
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
@@ -40,18 +51,6 @@ class CollectionViewController: UICollectionViewController, UICollectionViewData
         detailController.meme = memes[indexPath.row]
         self.navigationController!.pushViewController(detailController, animated: true)
     }
-//    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return memes.count
-//    }
-//    
-//    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCellWithIdentifier("MemeCell") as! UITableViewCell
-//        let meme = memes[indexPath.row]
-//        
-//        cell.textLabel?.text = meme.topText
-//        cell.imageView?.image = meme.memedImage
-//        return cell
-//    }
     
     @IBAction func createMeme(sender: AnyObject) {
         let createMemeController = self.storyboard!.instantiateViewControllerWithIdentifier("CreateMemeViewController") as! CreateMemeViewController
