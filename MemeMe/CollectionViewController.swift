@@ -21,7 +21,13 @@ class CollectionViewController: UICollectionViewController, UICollectionViewData
         let object = UIApplication.sharedApplication().delegate
         let appDelegate = object as! AppDelegate
         memes = appDelegate.memes
+        //Need to perform reloadData as when the view reappears of a new meme is added it should be refreshed to call numberOfRows etc.
         self.collectionView?.reloadData()
+        //If Memes contains no data, automatically launch meme creator
+        // This does imply that without sent memes the user will never get to the collection view
+        if appDelegate.autoCreateIfNoMemes && memes.count == 0 {
+            createMeme(self)
+        }
     }
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -32,6 +38,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewData
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("CollectionViewCell", forIndexPath: indexPath) as! CollectionViewCell
         let meme = memes[indexPath.row]
         cell.memeImageView?.image = meme.originalImage
+        
         cell.memeTopTextLabel.text = meme.topText!
         cell.memeTopTextLabel.font = UIFont(name: "HelveticaNeue-CondensedBlack", size: 8)
         cell.memeTopTextLabel.textColor = UIColor.whiteColor()
@@ -41,21 +48,19 @@ class CollectionViewController: UICollectionViewController, UICollectionViewData
         cell.memeBottomTextLabel.font = UIFont(name: "HelveticaNeue-CondensedBlack", size: 8)
         cell.memeBottomTextLabel.textColor = UIColor.whiteColor()
         cell.memeBottomTextLabel.shadowColor = UIColor.blackColor()
-
         
         return cell
     }
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let detailController = self.storyboard!.instantiateViewControllerWithIdentifier("MemeViewController") as! MemeViewController
-        //        detailController.villain = self.allVillains[indexPath.row]
         detailController.meme = memes[indexPath.row]
-        self.navigationController!.pushViewController(detailController, animated: true)
+        navigationController!.pushViewController(detailController, animated: true)
     }
     
     @IBAction func createMeme(sender: AnyObject) {
         let createMemeController = self.storyboard!.instantiateViewControllerWithIdentifier("CreateMemeViewController") as! CreateMemeViewController
         createMemeController.hidesBottomBarWhenPushed = true
-        self.presentViewController(createMemeController, animated: true, completion: nil)
+        presentViewController(createMemeController, animated: true, completion: nil)
     }
     
 }

@@ -18,12 +18,14 @@ class CreateMemeViewController: UIViewController,UIImagePickerControllerDelegate
     @IBOutlet weak var navigationBar: UINavigationBar!
     @IBOutlet weak var activityButton: UIBarButtonItem!
     
-    var screenShifted: Bool = false
+    private var screenShifted: Bool = false
     var meme = Meme()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //Set the image view content mode to aspect fit
         imageView.contentMode = UIViewContentMode.ScaleAspectFit
+        //disbale camera button if device has no camera
         cameraButton.enabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)
         
         topTitleTextField.delegate = self
@@ -62,33 +64,37 @@ class CreateMemeViewController: UIViewController,UIImagePickerControllerDelegate
         unsubscribeToKeyboardNotifications()
     }
     
-    func subscribeToKeyboardNotifications() {
+    private func subscribeToKeyboardNotifications() {
+        //Subscribe to know when keyboard appearing
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
         
     }
     
-    func unsubscribeToKeyboardNotifications () {
+    private func unsubscribeToKeyboardNotifications () {
+        //Unsubscribe
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
     }
     
     func keyboardWillShow(notification: NSNotification) {
+        // As Keyboard appears, if the bottom textfield if being edited the view must be adjusted upwards to keep it visible
         if bottomTitleTextField.isFirstResponder() {
-            self.view.frame.origin.y -= getKeyboardHeight(notification)
+            view.frame.origin.y -= getKeyboardHeight(notification)
             screenShifted = true
         }
     }
     
     func keyboardWillHide(notification: NSNotification) {
         if screenShifted {
-//            self.view.frame.origin.y = 0.0  // Could use 0 but would be too heavy handed if ever these were ever stacked
-            self.view.frame.origin.y += getKeyboardHeight(notification)
+//            view.frame.origin.y = 0.0  // Could use 0 but would be too heavy handed if ever these were ever stacked
+            view.frame.origin.y += getKeyboardHeight(notification)
              screenShifted = false
         }
     }
     
-    func getKeyboardHeight(notification : NSNotification) -> CGFloat {
+    private func getKeyboardHeight(notification : NSNotification) -> CGFloat {
+        //Returns height of chosen keyboard
         let userinfo = notification.userInfo
         let keyboardSize = userinfo![UIKeyboardFrameEndUserInfoKey] as! NSValue
         return keyboardSize.CGRectValue().height
@@ -98,7 +104,7 @@ class CreateMemeViewController: UIViewController,UIImagePickerControllerDelegate
     
     @IBAction func cancel(sender: AnyObject) {
         //Close this view controller
-        self.dismissViewControllerAnimated(true, completion: nil)
+        dismissViewControllerAnimated(true, completion: nil)
     }
     
     @IBAction func createAndShareMeme(sender: AnyObject) {
@@ -114,7 +120,7 @@ class CreateMemeViewController: UIViewController,UIImagePickerControllerDelegate
         let pickerController = UIImagePickerController()
         pickerController.delegate = self
         pickerController.sourceType = UIImagePickerControllerSourceType.Camera
-        self.presentViewController(pickerController, animated: true, completion: nil)
+        presentViewController(pickerController, animated: true, completion: nil)
     }
     
     @IBAction func pickImage(sender: AnyObject) {
@@ -122,7 +128,7 @@ class CreateMemeViewController: UIViewController,UIImagePickerControllerDelegate
         let pickerController = UIImagePickerController()
         pickerController.delegate = self
         pickerController.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
-        self.presentViewController(pickerController, animated: true, completion: nil)
+        presentViewController(pickerController, animated: true, completion: nil)
     }
     
     // MARK: Image picker delegate methods
@@ -131,15 +137,15 @@ class CreateMemeViewController: UIViewController,UIImagePickerControllerDelegate
         didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
             
             if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
-                self.imageView.image = image
+                imageView.image = image
                 meme.originalImage = image
             }
-            self.dismissViewControllerAnimated(true, completion: nil)
+            dismissViewControllerAnimated(true, completion: nil)
             
     }
     
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+        dismissViewControllerAnimated(true, completion: nil)
         checkMemeCompletion()
     }
     
@@ -164,31 +170,38 @@ class CreateMemeViewController: UIViewController,UIImagePickerControllerDelegate
     
     // MARK: Utility methods
     
-    func isCompleteMeme() -> Bool {
+    private func isCompleteMeme() -> Bool {
         // Making the assumption that user might want to set only top or bottom 
         // Also assumes that the unedited TOP and BOTTOM are not acceptable
-        let result = (topTitleTextField.text == "TOP")  || (bottomTitleTextField.text == "BOTTOM")  || (topTitleTextField.text == "" && bottomTitleTextField.text == "") || meme.originalImage == nil
+        let result = (topTitleTextField.text == "TOP")  || (bottomTitleTextField.text == "BOTTOM")  ||
+            (topTitleTextField.text == "" && bottomTitleTextField.text == "") || meme.originalImage == nil
+        // Return NOT result
         return !result
         
     }
     
-    func checkMemeCompletion() {
+    private func checkMemeCompletion() {
         // Function to control whether share button is enabled to ensure incomplete meme is not sent
         activityButton.enabled = isCompleteMeme()
     }
     
-    func saveMeme() {
+    private func saveMeme() {
         // Append the meme to array in the shared data model
-        (UIApplication.sharedApplication().delegate as! AppDelegate).memes.append(meme)
+        if let delegate = UIApplication.sharedApplication().delegate as? AppDelegate {
+            delegate.memes.append(meme)
+        }
     }
     
-    func shareMeme() {
+    private func shareMeme() {
         // Present memed image to activity controller for sharing/etc.
-        let array: [AnyObject] = [meme.memedImage!]
-        let activityController = UIActivityViewController(activityItems: array, applicationActivities: nil)
-        //Set the callback for the dismisal of the activityController
-        activityController.completionWithItemsHandler = returnFromShare
-        self.presentViewController(activityController, animated: true, completion: nil)
+        if let image = meme.memedImage {
+            let array: [AnyObject] = [image]
+            let activityController = UIActivityViewController(activityItems: array, applicationActivities: nil)
+            
+            //Set the callback for the dismisal of the activityController
+            activityController.completionWithItemsHandler = returnFromShare
+            presentViewController(activityController, animated: true, completion: nil)
+        }
     }
     
     func returnFromShare (activityType: String?, completed: Bool, returnedItems: [AnyObject]?, activityError: NSError?){
@@ -200,14 +213,14 @@ class CreateMemeViewController: UIViewController,UIImagePickerControllerDelegate
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    func generateMemedImage() -> UIImage {
+    private func generateMemedImage() -> UIImage {
         //Hide the controls to exclude them from the meme
         toolbar.hidden = true
         navigationBar.hidden = true
         
         // render view to an image
-        UIGraphicsBeginImageContext(self.view.frame.size)
-        self.view.drawViewHierarchyInRect(self.view.frame, afterScreenUpdates: true)
+        UIGraphicsBeginImageContext(view.frame.size)
+        self.view.drawViewHierarchyInRect(view.frame, afterScreenUpdates: true)
         let memedImage : UIImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
 

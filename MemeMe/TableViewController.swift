@@ -21,7 +21,13 @@ class TableViewController: UITableViewController,UITableViewDataSource, UITableV
         let object = UIApplication.sharedApplication().delegate
         let appDelegate = object as! AppDelegate
         memes = appDelegate.memes
-        self.tableView.reloadData()
+        //Need to perform reloadData as when the view reappears of a new meme is added it should be refreshed to call numberOfRows etc.
+        tableView.reloadData()
+        //If Memes contains no data, automatically launch meme creator
+        // This does imply that without sent memes the user will never get to the table view
+        if appDelegate.autoCreateIfNoMemes && memes.count == 0 {
+            createMeme(self)
+        }
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -31,8 +37,11 @@ class TableViewController: UITableViewController,UITableViewDataSource, UITableV
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("MemeCell") as! TableViewCell
         let meme = memes[indexPath.row]
+        // Use original image with overlaid text fields rather than trying to display memedImage
         cell.memeImageView.image = meme.originalImage
         cell.memeLabel.text = meme.topText! + " ... " + meme.bottomText!
+        
+        // Replicate font as best as possible
         cell.memeTopTextLabel.text = meme.topText!
         cell.memeTopTextLabel.font = UIFont(name: "HelveticaNeue-CondensedBlack", size: 8)
         cell.memeTopTextLabel.textColor = UIColor.whiteColor()
@@ -47,16 +56,16 @@ class TableViewController: UITableViewController,UITableViewDataSource, UITableV
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let detailController = self.storyboard!.instantiateViewControllerWithIdentifier("MemeViewController") as! MemeViewController
-//        detailController.villain = self.allVillains[indexPath.row]
+        let detailController = storyboard!.instantiateViewControllerWithIdentifier("MemeViewController") as! MemeViewController
         detailController.meme = memes[indexPath.row]
-        self.navigationController!.pushViewController(detailController, animated: true)
+        navigationController!.pushViewController(detailController, animated: true)
     }
     
     @IBAction func createMeme(sender: AnyObject) {
-        let createMemeController = self.storyboard!.instantiateViewControllerWithIdentifier("CreateMemeViewController") as! CreateMemeViewController
+        let createMemeController = storyboard!.instantiateViewControllerWithIdentifier("CreateMemeViewController") as! CreateMemeViewController
+        //Hide the Table / Collection view options when creating
         createMemeController.hidesBottomBarWhenPushed = true
-        self.presentViewController(createMemeController, animated: true, completion: nil)
+        presentViewController(createMemeController, animated: true, completion: nil)
     }
    
 }

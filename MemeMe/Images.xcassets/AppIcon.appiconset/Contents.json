@@ -1,39 +1,37 @@
 {
   "images" : [
     {
-      "size" : "29x29",
       "idiom" : "iphone",
-      "filename" : "MemeGenerator_120 copy.png",
+      "size" : "29x29",
       "scale" : "2x"
     },
     {
-      "size" : "29x29",
       "idiom" : "iphone",
-      "filename" : "MemeGenerator_180 copy.png",
+      "size" : "29x29",
       "scale" : "3x"
     },
     {
       "size" : "40x40",
+      "idiom" : "iphone",
+      "filename" : "MemeGenerator_80 copy.png",
+      "scale" : "2x"
+    },
+    {
+      "size" : "40x40",
+      "idiom" : "iphone",
+      "filename" : "MemeGenerator_120 copy.png",
+      "scale" : "3x"
+    },
+    {
+      "size" : "60x60",
       "idiom" : "iphone",
       "filename" : "MemeGenerator_120 copy-1.png",
       "scale" : "2x"
     },
     {
-      "size" : "40x40",
-      "idiom" : "iphone",
-      "filename" : "MemeGenerator_180 copy-1.png",
-      "scale" : "3x"
-    },
-    {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "MemeGenerator_120 copy-2.png",
-      "scale" : "2x"
-    },
-    {
-      "size" : "60x60",
-      "idiom" : "iphone",
-      "filename" : "MemeGenerator_180 copy-2.png",
+      "filename" : "MemeGenerator_180 copy.png",
       "scale" : "3x"
     }
   ],

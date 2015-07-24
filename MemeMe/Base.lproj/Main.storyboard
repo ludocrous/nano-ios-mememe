@@ -63,27 +63,18 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
-                                            <variation key="widthClass=compact" ambiguous="YES" misplaced="YES">
-                                                <rect key="frame" x="108" y="8" width="284" height="49"/>
-                                            </variation>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ubt-Ae-R6U">
                                             <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="9"/>
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
-                                            <variation key="widthClass=compact" misplaced="YES">
-                                                <rect key="frame" x="33" y="41" width="42" height="16"/>
-                                            </variation>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OEF-U9-91j">
                                             <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="9"/>
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
-                                            <variation key="widthClass=compact" misplaced="YES">
-                                                <rect key="frame" x="33" y="8" width="42" height="16"/>
-                                            </variation>
                                         </label>
                                     </subviews>
                                     <constraints>
@@ -92,6 +83,8 @@
                                         <constraint firstItem="zca-LN-92c" firstAttribute="leading" secondItem="abq-yK-aNI" secondAttribute="trailing" constant="8" id="4JB-f0-eFY"/>
                                         <constraint firstItem="zca-LN-92c" firstAttribute="trailing" secondItem="cQb-el-uGw" secondAttribute="trailingMargin" id="6yh-2F-zwG"/>
                                         <constraint firstItem="abq-yK-aNI" firstAttribute="centerX" secondItem="OEF-U9-91j" secondAttribute="centerX" id="Cw3-yr-zIJ"/>
+                                        <constraint firstItem="zca-LN-92c" firstAttribute="bottom" secondItem="cQb-el-uGw" secondAttribute="bottomMargin" id="Dmj-5B-LaB"/>
+                                        <constraint firstItem="zca-LN-92c" firstAttribute="top" secondItem="cQb-el-uGw" secondAttribute="topMargin" id="MJY-bF-vdC"/>
                                         <constraint firstItem="OEF-U9-91j" firstAttribute="top" secondItem="cQb-el-uGw" secondAttribute="topMargin" id="WOa-jO-TXD"/>
                                         <constraint firstItem="abq-yK-aNI" firstAttribute="leading" secondItem="cQb-el-uGw" secondAttribute="leadingMargin" id="ZXw-gM-l5m"/>
                                         <constraint firstItem="abq-yK-aNI" firstAttribute="centerX" secondItem="ubt-Ae-R6U" secondAttribute="centerX" id="eM1-Ue-M3U"/>
@@ -116,6 +109,8 @@
                                             <exclude reference="pMb-oM-mp3"/>
                                             <exclude reference="4JB-f0-eFY"/>
                                             <exclude reference="6yh-2F-zwG"/>
+                                            <exclude reference="Dmj-5B-LaB"/>
+                                            <exclude reference="MJY-bF-vdC"/>
                                         </mask>
                                     </variation>
                                     <variation key="widthClass=compact">
@@ -136,6 +131,8 @@
                                             <include reference="pMb-oM-mp3"/>
                                             <include reference="4JB-f0-eFY"/>
                                             <include reference="6yh-2F-zwG"/>
+                                            <include reference="Dmj-5B-LaB"/>
+                                            <include reference="MJY-bF-vdC"/>
                                         </mask>
                                     </variation>
                                 </tableViewCellContentView>
@@ -241,14 +238,14 @@
                                         <exclude reference="9jd-8Q-TCT"/>
                                     </mask>
                                     <mask key="constraints">
+                                        <exclude reference="qMf-wU-dRo"/>
+                                        <exclude reference="Dwc-Wv-hc2"/>
+                                        <exclude reference="xrr-1N-lAb"/>
                                         <exclude reference="Le0-hJ-6zR"/>
                                         <exclude reference="Xuw-4c-Dgc"/>
                                         <exclude reference="dfO-aX-qsV"/>
                                         <exclude reference="gqX-Ex-VPO"/>
                                         <exclude reference="oBQ-Cx-0Sv"/>
-                                        <exclude reference="Dwc-Wv-hc2"/>
-                                        <exclude reference="xrr-1N-lAb"/>
-                                        <exclude reference="qMf-wU-dRo"/>
                                     </mask>
                                 </variation>
                                 <variation key="widthClass=compact">
@@ -258,14 +255,14 @@
                                         <include reference="9jd-8Q-TCT"/>
                                     </mask>
                                     <mask key="constraints">
+                                        <include reference="qMf-wU-dRo"/>
+                                        <include reference="Dwc-Wv-hc2"/>
+                                        <include reference="xrr-1N-lAb"/>
                                         <include reference="Le0-hJ-6zR"/>
                                         <include reference="Xuw-4c-Dgc"/>
                                         <include reference="dfO-aX-qsV"/>
                                         <include reference="gqX-Ex-VPO"/>
                                         <include reference="oBQ-Cx-0Sv"/>
-                                        <include reference="Dwc-Wv-hc2"/>
-                                        <include reference="xrr-1N-lAb"/>
-                                        <include reference="qMf-wU-dRo"/>
                                     </mask>
                                 </variation>
                                 <connections>
