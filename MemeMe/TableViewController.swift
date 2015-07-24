@@ -10,33 +10,34 @@ import UIKit
 
 class TableViewController: UITableViewController,UITableViewDataSource, UITableViewDelegate {
     
-    var memes: [Meme]!
+    private var appDelegate: AppDelegate!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        let object = UIApplication.sharedApplication().delegate
+        appDelegate = object as! AppDelegate
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        let object = UIApplication.sharedApplication().delegate
-        let appDelegate = object as! AppDelegate
-        memes = appDelegate.memes
+
         //Need to perform reloadData as when the view reappears of a new meme is added it should be refreshed to call numberOfRows etc.
         tableView.reloadData()
         //If Memes contains no data, automatically launch meme creator
         // This does imply that without sent memes the user will never get to the table view
-        if appDelegate.autoCreateIfNoMemes && memes.count == 0 {
+        if appDelegate.autoCreateIfNoMemes && appDelegate.memes.count == 0 {
             createMeme(self)
         }
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return memes.count
+        return appDelegate.memes.count
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("MemeCell") as! TableViewCell
-        let meme = memes[indexPath.row]
+        let meme = appDelegate.memes[indexPath.row]
         // Use original image with overlaid text fields rather than trying to display memedImage
         cell.memeImageView.image = meme.originalImage
         cell.memeLabel.text = meme.topText! + " ... " + meme.bottomText!
@@ -57,7 +58,7 @@ class TableViewController: UITableViewController,UITableViewDataSource, UITableV
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let detailController = storyboard!.instantiateViewControllerWithIdentifier("MemeViewController") as! MemeViewController
-        detailController.meme = memes[indexPath.row]
+        detailController.meme = appDelegate.memes[indexPath.row]
         navigationController!.pushViewController(detailController, animated: true)
     }
     

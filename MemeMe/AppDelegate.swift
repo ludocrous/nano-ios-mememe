@@ -13,7 +13,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     
-    var memes = [Meme]()
+    var memes = MemeCollection()
     
     //This flag will determine app behaviour on initial loading. If set to true, on loading if there are no sent memes the create memes view will display.
     let autoCreateIfNoMemes: Bool = false
@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         //TODO: Kill this before final version
         // Adding two sample elements to have something to display for testing
-//        memes = Meme.prepArray()
+        memes.prepArray()
 
         return true
     }

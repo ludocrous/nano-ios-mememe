@@ -10,33 +10,34 @@ import UIKit
 
 class CollectionViewController: UICollectionViewController, UICollectionViewDataSource,UICollectionViewDelegate {
     
-    var memes: [Meme]!
+    private var appDelegate: AppDelegate!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        let object = UIApplication.sharedApplication().delegate
+        appDelegate = object as! AppDelegate
+
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        let object = UIApplication.sharedApplication().delegate
-        let appDelegate = object as! AppDelegate
-        memes = appDelegate.memes
         //Need to perform reloadData as when the view reappears of a new meme is added it should be refreshed to call numberOfRows etc.
         self.collectionView?.reloadData()
         //If Memes contains no data, automatically launch meme creator
         // This does imply that without sent memes the user will never get to the collection view
-        if appDelegate.autoCreateIfNoMemes && memes.count == 0 {
+        if appDelegate.autoCreateIfNoMemes && appDelegate.memes.count == 0 {
             createMeme(self)
         }
     }
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return memes.count
+        return appDelegate.memes.count
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("CollectionViewCell", forIndexPath: indexPath) as! CollectionViewCell
-        let meme = memes[indexPath.row]
+        let meme = appDelegate.memes[indexPath.row]
         cell.memeImageView?.image = meme.originalImage
         
         cell.memeTopTextLabel.text = meme.topText!
@@ -53,7 +54,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewData
     }
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let detailController = self.storyboard!.instantiateViewControllerWithIdentifier("MemeViewController") as! MemeViewController
-        detailController.meme = memes[indexPath.row]
+        detailController.meme = appDelegate.memes[indexPath.row]
         navigationController!.pushViewController(detailController, animated: true)
     }
     

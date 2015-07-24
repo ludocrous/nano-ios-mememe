@@ -19,10 +19,14 @@ class CreateMemeViewController: UIViewController,UIImagePickerControllerDelegate
     @IBOutlet weak var activityButton: UIBarButtonItem!
     
     private var screenShifted: Bool = false
+    private var appDelegate: AppDelegate!
     var meme = Meme()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let object = UIApplication.sharedApplication().delegate
+        appDelegate = object as! AppDelegate
+        
         //Set the image view content mode to aspect fit
         imageView.contentMode = UIViewContentMode.ScaleAspectFit
         //disbale camera button if device has no camera
@@ -51,11 +55,13 @@ class CreateMemeViewController: UIViewController,UIImagePickerControllerDelegate
         
     }
     
+    
     // MARK: Keyboard Handling
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         subscribeToKeyboardNotifications()
+        populateFields()
         checkMemeCompletion()
     }
     
@@ -170,11 +176,18 @@ class CreateMemeViewController: UIViewController,UIImagePickerControllerDelegate
     
     // MARK: Utility methods
     
+    private func populateFields() {
+        if meme.id != nil {
+            topTitleTextField.text = meme.topText
+            bottomTitleTextField.text = meme.bottomText
+            imageView.image = meme.originalImage
+        }
+    }
+    
     private func isCompleteMeme() -> Bool {
         // Making the assumption that user might want to set only top or bottom 
-        // Also assumes that the unedited TOP and BOTTOM are not acceptable
-        let result = (topTitleTextField.text == "TOP")  || (bottomTitleTextField.text == "BOTTOM")  ||
-            (topTitleTextField.text == "" && bottomTitleTextField.text == "") || meme.originalImage == nil
+//        let result = (topTitleTextField.text == "TOP")  || (bottomTitleTextField.text == "BOTTOM")  ||
+        let result = (topTitleTextField.text == "" && bottomTitleTextField.text == "") || meme.originalImage == nil
         // Return NOT result
         return !result
         
@@ -187,8 +200,10 @@ class CreateMemeViewController: UIViewController,UIImagePickerControllerDelegate
     
     private func saveMeme() {
         // Append the meme to array in the shared data model
-        if let delegate = UIApplication.sharedApplication().delegate as? AppDelegate {
-            delegate.memes.append(meme)
+        if meme.id == nil {
+            appDelegate.memes.append(meme)
+        } else {
+            appDelegate.memes.replace(meme)
         }
     }
     

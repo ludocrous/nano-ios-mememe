@@ -9,26 +9,84 @@
 import UIKit
 
 struct Meme {
+    var id: Int?
     var topText: String?
     var bottomText: String?
     var originalImage: UIImage?
     var memedImage: UIImage?
     
+}
+
+class MemeCollection {
+    
+    private var memes = [Meme]()
+    private var nextMemeID = 0
+    
+    var count:  Int {
+        get {
+            return memes.count
+        }
+    }
+
+    subscript(index: Int) -> Meme {
+        return memes[index]
+    }
+    
+    func append(var newMeme: Meme) {
+        if newMeme.id == nil {
+            newMeme.id = nextMemeID++
+            memes.append(newMeme)
+        }
+    }
+    
+    func replace(currentMeme: Meme) {
+        if let findID = currentMeme.id {
+            let memeIndex = findIndexOfMemeById(findID)
+            if memeIndex >= 0 {
+                memes[memeIndex] = currentMeme
+            } else {
+                //TODO: Convert to exception
+                println("Cannot find meme to replace - ID: \(currentMeme.id)")
+            }
+        }
+    }
+    
+    func delete(currentMeme: Meme) {
+        if let findID = currentMeme.id {
+            let memeIndex = findIndexOfMemeById(findID)
+            if memeIndex >= 0 {
+                memes.removeAtIndex(memeIndex)
+            } else {
+                //TODO: Convert to exception
+                println("Cannot find meme to delete - ID: \(currentMeme.id)")
+            }
+        }
+        
+    }
+    
+    private func findIndexOfMemeById (id: Int) -> Int {
+        for (index,meme) in enumerate(memes) {
+            if meme.id == id {
+                return index
+            }
+        }
+        return -1
+    }
+
     //TODO: Remove this code before release
-    static func prepArray () -> [Meme] {
-        var array = [Meme]()
+    func prepArray () {
         var meme = Meme()
         meme.bottomText = "Purple Patch ?"
         meme.topText = "should be something"
         meme.originalImage = UIImage(named: "Purple")
         meme.memedImage = UIImage(named: "MPurple")
-        array.append(meme)
+        self.append(meme)
         
         meme.bottomText = "should be something"
         meme.topText = "Does a bear?"
         meme.originalImage = UIImage(named: "Forest")
         meme.memedImage = UIImage(named: "MForest")
-        array.append(meme)
-        return array
+        self.append(meme)
     }
+
 }
