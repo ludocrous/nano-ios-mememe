@@ -72,21 +72,4 @@ class MemeCollection {
         }
         return -1
     }
-
-    //TODO: Remove this code before release
-    func prepArray () {
-        var meme = Meme()
-        meme.bottomText = "Purple Patch ?"
-        meme.topText = "should be something"
-        meme.originalImage = UIImage(named: "Purple")
-        meme.memedImage = UIImage(named: "MPurple")
-        self.append(meme)
-        
-        meme.bottomText = "should be something"
-        meme.topText = "Does a bear?"
-        meme.originalImage = UIImage(named: "Forest")
-        meme.memedImage = UIImage(named: "MForest")
-        self.append(meme)
-    }
-
 }
